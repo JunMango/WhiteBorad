@@ -36,14 +36,15 @@ export default  function Whiteboard  (){
     ctx.beginPath();
     ctx.moveTo(offsetX, offsetY);
 
-    e.preventDefault(); // 터치 시 스크롤 방지
+    // 터치 시 스크롤 방지
+    e.preventDefault();
   };
 
   const endDrawing = () => {
     setIsDrawing(false);
     canvasRef.current.getContext('2d').beginPath();
   };
-
+  // 로컬 스토리지에 저장.
   const saveDrawing = () => {
     const drawingData = JSON.stringify(lines);
     console.log('Saved Drawing Data:', drawingData);
@@ -63,7 +64,8 @@ export default  function Whiteboard  (){
             onTouchEnd={endDrawing}
             width={800}
             height={600}
-            style={{ border: '1px solid #000', touchAction: 'none' }} // touch-action 스타일 추가
+            // touch-action 스타일 추가
+            style={{ border: '1px solid #000', touchAction: 'none' }}
         />
         <button onClick={saveDrawing}>Save Drawing</button>
       </div>
