@@ -8,8 +8,7 @@
 공유 판서의 권한이 있는 사람들끼리만 특정 페이지를 제공한후에 통신을 하는 구조를 가지게 할것입니다.
 특정 url은 해시값을 생성하고 서버에서 검증하는 형식으로 각 유저의 권한을 확인하는 형식으로 접근이 가능하게 합니다.
 #### 10.11
-<img width="800" alt="스크린샷 2024-10-11 오후 9 40 34" src="https://github.com/user-attachments/assets/c72ec165-9725-41d8-b46d-c7aa72fb7765">
+![IMG_09935E1BB88B-1](https://github.com/user-attachments/assets/677d66db-a89e-4b03-86c2-79efbaf31dcf)
 10.11 지우개를 구현 하였습니다.
 
 #### 
-
