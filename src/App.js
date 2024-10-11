@@ -1,12 +1,11 @@
 import './App.css';
-import WhiteBoard from './component/WhiteBoard/Whiteboard';
+import Note from "./page/note/note";
 
 function App() {
   return (
-    <div className="App">
-      <h1>전자칠판 테스트 코드</h1>
-      <WhiteBoard />
-    </div>
+      <div className="App">
+          <Note/>
+      </div>
   );
 }
 
