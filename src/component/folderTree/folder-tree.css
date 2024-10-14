@@ -1,0 +1,25 @@
+.sideNavBar {
+    user-select: none;
+    z-index: 999;
+    position: fixed;
+    width: 20%;
+    padding-top: 20px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgb(236, 236, 236);
+    overflow: auto;
+    font-family: Apple-System, Arial, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, STXihei, sans-serif;
+}
+
+.right-side {
+    margin-left: 20%;
+}
+
+.table-heading {
+    padding: 16px;
+}
+.table-struct {
+    padding-left: 16px;
+}

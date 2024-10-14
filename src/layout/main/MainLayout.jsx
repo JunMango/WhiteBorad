@@ -1,7 +1,8 @@
-export default function MainLayout({content}){
-    return (
-        <div className="layout">
-            {content}
-        </div>
-    )
+export default function MainLayout({ content, sidebar }) {
+        return (
+            <div>
+                <div>{content}</div>
+                {sidebar}
+            </div>
+        );
 }
