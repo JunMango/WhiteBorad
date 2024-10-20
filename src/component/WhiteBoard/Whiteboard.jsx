@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import css from './white-board.module.css';
-import Eraser from "./writing instrument/Eraser";
+import Eraser from './writing instrument/Eraser';
 
 export default function Whiteboard() {
   const canvasRef = useRef(null);
@@ -39,7 +39,10 @@ export default function Whiteboard() {
     if (e.nativeEvent instanceof TouchEvent) {
       const touch = e.nativeEvent.touches[0];
       const rect = canvasRef.current.getBoundingClientRect();
-      return { offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top };
+      return {
+        offsetX: touch.clientX - rect.left,
+        offsetY: touch.clientY - rect.top,
+      };
     }
     return { offsetX: e.nativeEvent.offsetX, offsetY: e.nativeEvent.offsetY };
   };
@@ -97,38 +100,42 @@ export default function Whiteboard() {
   };
 
   return (
-      <div className={css.canvasContainer}>
-        <canvas
-            ref={canvasRef}
-            onMouseDown={startDrawing}
-            onMouseMove={draw}
-            onMouseUp={endDrawing}
-            onMouseLeave={endDrawing}
-            onTouchStart={startDrawing}
-            onTouchMove={draw}
-            onTouchEnd={endDrawing}
-            className={css.canvas}
+    <div className={css.canvasContainer}>
+      <canvas
+        ref={canvasRef}
+        onMouseDown={startDrawing}
+        onMouseMove={draw}
+        onMouseUp={endDrawing}
+        onMouseLeave={endDrawing}
+        onTouchStart={startDrawing}
+        onTouchMove={draw}
+        onTouchEnd={endDrawing}
+        className={css.canvas}
+      />
+      {currentTool === 'eraser' && (
+        <div
+          style={{
+            position: 'absolute',
+            left: eraserPosition.x - 10,
+            top: eraserPosition.y - 10,
+            width: '100px',
+            height: '100px',
+            border: '' + '2px dashed red',
+            borderRadius: '50%',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }}
         />
-        {currentTool === 'eraser' && (
-            <div
-                style={{
-                  position: 'absolute',
-                  left: eraserPosition.x - 10,
-                  top: eraserPosition.y - 10,
-                  width: '100px',
-                  height: '100px',
-                  border: '2px dashed red',
-                  borderRadius: '50%',
-                  pointerEvents: 'none',
-                  zIndex: 10,
-                }}
-            />
-        )}
-        <button onClick={() => setCurrentTool('pen')} className={`${css.btn} ${css.pen}`}>Pen</button>
-        <Eraser onSelect={setCurrentTool} />
-        <button onClick={resetDrawing} className={`${css.btn} ${css.reset}`}>
-          Reset
-        </button>
-      </div>
+      )}
+      <button
+        onClick={() => setCurrentTool('pen')}
+        className={`${css.btn} ${css.pen}`}>
+        Pen
+      </button>
+      <Eraser onSelect={setCurrentTool} />
+      <button onClick={resetDrawing} className={`${css.btn} ${css.reset}`}>
+        Reset
+      </button>
+    </div>
   );
 }
