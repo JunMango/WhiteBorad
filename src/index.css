@@ -1,3 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* adding base style */
+@layer base {
+  p {
+    /* 모든 p에 font-family: font-serif, box-sizing: border-box, margin: 0, padding: 0 적용 */
+    @apply font-serif box-border m-0 p-0;
+  }
+
+  div {
+    /* 모든 div에 box-sizing: border-box, margin: 0, padding: 0 적용 */
+    @apply box-border m-0 p-0;
+  }
+}
+
 body {
   margin: 0;
   /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
