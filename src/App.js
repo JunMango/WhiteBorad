@@ -1,11 +1,12 @@
-import Note from './page/note/note';
+import Note from './page/Note';
+import Login from './page/Login';
+import { Route, Routes } from 'react-router-dom';
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <Note />
-    </div>
+    <Routes>
+      <Route path='/' element={<Login />} />
+      <Route path='/note' element={<Note />} />
+    </Routes>
   );
 }
-
-export default App;
