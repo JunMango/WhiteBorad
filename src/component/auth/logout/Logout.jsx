@@ -1,5 +1,6 @@
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@material-tailwind/react';
 
 export default function Logout({ setIsLogin, setProfile }) {
   const navigate = useNavigate();
@@ -16,5 +17,5 @@ export default function Logout({ setIsLogin, setProfile }) {
     }
   };
 
-  return <button onClick={handleLogout}>Log out</button>;
+  return <span onClick={handleLogout}>Logout</span>;
 }

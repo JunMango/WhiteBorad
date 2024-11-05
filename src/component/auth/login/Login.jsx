@@ -2,9 +2,9 @@ import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { TERipple } from 'tw-elements-react';
+import { Button } from '@material-tailwind/react';
 
-export default function Login() {
+export default function Login({ children, ...props }) {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
@@ -60,30 +60,9 @@ export default function Login() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   };
-
   return (
-    <div>
-      <TERipple rippleColor='light' className='w-full'>
-        <button
-          className='mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]'
-          style={{ backgroundColor: '#a40f16' }}
-          onClick={() => login()}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='mr-2 h-6 w-6 text-white'
-            viewBox='0 0 24 24'
-            stroke-width='2'
-            stroke='currentColor'
-            fill='none'
-            stroke-linecap='round'
-            stroke-linejoin='round'>
-            fill='currentColor' viewBox='0 0 24 24'>
-            <path stroke='none' d='M0 0h24v24H0z' />
-            <path d='M17.788 5.108A9 9 0 1021 12h-8' />
-          </svg>
-          Google Login
-        </button>
-      </TERipple>
-    </div>
+    <Button onClick={() => login()} {...props}>
+      {children}
+    </Button>
   );
 }
