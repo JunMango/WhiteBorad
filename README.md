@@ -65,3 +65,5 @@ pagkage.json 에 다음과 같이 의존성을 추가하면된다.
 
 - 로그인후 user를 위한 SideBar를 추가 하였다. 여기에는 user의 노트들과 공유 되어 있는 노트 및 그룹들이 표시될 예정이다.
 <img width="1711" alt="스크린샷 2024-11-05 오후 6 16 51" src="https://github.com/user-attachments/assets/be01da7c-52ec-4f68-9bd2-67f1e62b146c">
+- MUI로 변경하면서 로그인 ui 도 같이 변경하였다.
+- <img width="864" alt="스크린샷 2024-11-05 오후 6 27 30" src="https://github.com/user-attachments/assets/3b056232-314f-4976-97ac-d2d8ca9816b1">
