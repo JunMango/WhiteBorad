@@ -16,7 +16,7 @@ export default function LoginPage() {
   };
 
   return (
-    <MainLayout sidebar={null}>
+    <>
       <section className='grid text-center h-screen items-center p-8'>
         <div>
           <Typography variant='h3' color='blue-gray' className='mb-2'>
@@ -116,6 +116,6 @@ export default function LoginPage() {
           </form>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }

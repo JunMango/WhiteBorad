@@ -1,65 +1,54 @@
-import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google';
-import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../../redux/authSlice';
+import { Button, useSelect } from '@material-tailwind/react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@material-tailwind/react';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Login({ children, ...props }) {
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 초기 로드 시 로컬 스토리지 확인
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('token'));
-    const storedProfile = JSON.parse(localStorage.getItem('user'));
-
-    if (storedUser && storedProfile) {
-      setUser(storedUser);
-      setProfile(storedProfile);
-      setIsLogin(true);
-      navigate(`/user/${storedProfile.id}`);
-    }
-  }, [navigate]);
-
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      setUser(codeResponse);
-      setIsLogin(true);
-      localStorage.setItem('token', JSON.stringify(codeResponse));
+    onSuccess: async (codeResponse) => {
+      try {
+        const response = await axios.post(
+          'http://localhost:8080/api/auth/google/login',
+          { access_token: codeResponse.access_token }
+        );
+        // 저장한 access_token과 refresh_token을 쿠키에 설정
+        // 만료 1시간
+        Cookies.set('token', response.data.token, {
+          expires: 1 / 24,
+          secure: true,
+          sameSite: 'Strict',
+        });
+        const token = Cookies.get('token');
+        const decoded = jwtDecode(token);
+        const userInfo = {
+          email: decoded.email,
+          name: decoded.name,
+          id: decoded.id,
+        };
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        // 1시간으로 만료 시간 설정
+        // Cookies.set('refresh_token', response.data.refresh_token, {
+        //   expires: 1 / 24, // 1시간 후 만료
+        //   secure: true,
+        //   sameSite: 'Strict',
+        // });
+
+        dispatch(setToken(response.data.token));
+        navigate(response.data.redirectUrl);
+      } catch (error) {
+        console.error('Login failed:', error);
+      }
     },
     onError: (error) => console.log('Login Failed:', error),
   });
 
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: 'application/json',
-            },
-          }
-        )
-        .then((res) => {
-          setProfile(res.data);
-          localStorage.setItem('user', JSON.stringify(res.data));
-          navigate(`/user/${res.data.id}`);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user, navigate]);
-
-  const logOut = () => {
-    googleLogout();
-    setProfile(null);
-    setIsLogin(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  };
   return (
     <Button onClick={() => login()} {...props}>
       {children}
