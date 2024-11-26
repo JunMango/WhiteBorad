@@ -32,6 +32,7 @@
 .btn:active {
     transform: translateY(1px);
 }
+
 .reset{
     bottom: 40px;
     right: 40px;
@@ -44,4 +45,8 @@
 .pen{
     bottom: 40px;
     right: 230px;
+}
+.show{
+    bottom: 40px;
+    right: 330px;
 }

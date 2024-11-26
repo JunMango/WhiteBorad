@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import css from './white-board.module.css';
 import Eraser from './writing instrument/Eraser';
 
@@ -7,7 +8,33 @@ export default function Whiteboard() {
   const [isDrawing, setIsDrawing] = useState(false);
   const [lines, setLines] = useState([]);
   const [currentTool, setCurrentTool] = useState('pen'); // 'pen' or 'eraser'
-  const [eraserPosition, setEraserPosition] = useState({ x: 0, y: 0 }); // New state for eraser position
+  const [eraserPosition, setEraserPosition] = useState({ x: 0, y: 0 });
+  const socketRef = useRef(null);
+
+  // useEffect(() => {
+  //   // 소켓 연결 설정
+  //   const token = localStorage.getItem('token');
+  //   socketRef.current = io('http://localhost:8080/api/socket', {
+  //     auth: {
+  //       token,
+  //     },
+  //   });
+  //
+  //   socketRef.current.on('connect', () => {
+  //     console.log('Connected to the server');
+  //     // 기본 방에 참여
+  //     socketRef.current.emit('joinRoom', 'defaultRoom');
+  //   });
+  //
+  //   socketRef.current.on('draw', (data) => {
+  //     // 다른 사용자들이 그린 내용을 화면에 반영
+  //     drawOnCanvas(data);
+  //   });
+  //
+  //   return () => {
+  //     socketRef.current.disconnect();
+  //   };
+  // }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,6 +83,7 @@ export default function Whiteboard() {
       setEraserPosition({ x: offsetX, y: offsetY });
     }
   };
+
   const draw = (e) => {
     if (!isDrawing) return;
     e.stopPropagation();
@@ -77,6 +105,14 @@ export default function Whiteboard() {
       ctx.clearRect(offsetX - 20, offsetY - 20, 100, 100);
       setEraserPosition({ x: offsetX, y: offsetY });
     }
+
+    // 소켓을 통해 그리기 데이터를 서버로 전송
+    socketRef.current.emit('draw', {
+      room: 'defaultRoom',
+      tool: currentTool,
+      x: offsetX,
+      y: offsetY,
+    });
   };
 
   const endDrawing = (e) => {
@@ -84,6 +120,20 @@ export default function Whiteboard() {
     e.stopPropagation();
     setIsDrawing(false);
     canvasRef.current.getContext('2d').beginPath();
+  };
+
+  const drawOnCanvas = (data) => {
+    const ctx = canvasRef.current.getContext('2d');
+    if (data.tool === 'pen') {
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.lineTo(data.x, data.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(data.x, data.y);
+    } else if (data.tool === 'eraser') {
+      ctx.clearRect(data.x - 20, data.y - 20, 100, 100);
+    }
   };
 
   const saveDrawing = () => {
@@ -96,7 +146,6 @@ export default function Whiteboard() {
     setLines([]);
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    localStorage.removeItem('drawing');
   };
 
   return (
