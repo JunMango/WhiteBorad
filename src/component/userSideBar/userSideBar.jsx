@@ -19,24 +19,34 @@ import {
   InboxIcon,
   PowerIcon,
 } from '@heroicons/react/24/solid';
+
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import Logout from '../auth/logout/Logout';
+import { useDispatch, useSelector } from 'react-redux';
+import { BellIcon, UserGroupIcon } from '@heroicons/react/16/solid';
 
 export default function UserSideBar({ setIsLogin, setProfile }) {
   const [open, setOpen] = useState(0);
-
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  console.log(user);
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
 
   return (
-    <Card className='h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-gray-600'>
+    <Card className='h-[80vh] p-1  shadow-gray-600'>
       <div className='mb-2 p-4'>
         <Typography variant='h5' color='blue-gray'>
-          Sidebar
+          Title-binding
         </Typography>
       </div>
       <List>
+        <ListItem disabled={true} className='text-balance'>
+          <ListItemPrefix>
+            <UserCircleIcon className='h-8 w-8 text-blue-900' />
+          </ListItemPrefix>
+          <span className='text-black'>{user.name}</span>
+        </ListItem>
         <Accordion
           open={open === 1}
           icon={
@@ -50,10 +60,10 @@ export default function UserSideBar({ setIsLogin, setProfile }) {
               onClick={() => handleOpen(1)}
               className='border-b-0 p-3'>
               <ListItemPrefix>
-                <PresentationChartBarIcon className='h-5 w-5' />
+                <BellIcon className='h-5 w-5' />
               </ListItemPrefix>
               <Typography color='blue-gray' className='mr-auto font-normal'>
-                Dashboard
+                나의 초대
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -61,19 +71,19 @@ export default function UserSideBar({ setIsLogin, setProfile }) {
             <List className='p-0'>
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
+                  {/*<ChevronRightIcon strokeWidth={3} className='h-3 w-5' />*/}
                 </ListItemPrefix>
                 Analytics
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
+                  {/*<ChevronRightIcon strokeWidth={3} className='h-3 w-5' />*/}
                 </ListItemPrefix>
                 Reporting
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
+                  {/*<ChevronRightIcon strokeWidth={3} className='h-3 w-5' />*/}
                 </ListItemPrefix>
                 Projects
               </ListItem>
@@ -93,10 +103,10 @@ export default function UserSideBar({ setIsLogin, setProfile }) {
               onClick={() => handleOpen(2)}
               className='border-b-0 p-3'>
               <ListItemPrefix>
-                <ShoppingBagIcon className='h-5 w-5' />
+                <UserGroupIcon className='h-5 w-5' />
               </ListItemPrefix>
               <Typography color='blue-gray' className='mr-auto font-normal'>
-                E-Commerce
+                나의 그룹
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -106,13 +116,13 @@ export default function UserSideBar({ setIsLogin, setProfile }) {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
                 </ListItemPrefix>
-                Orders
+                Team_1
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
                 </ListItemPrefix>
-                Products
+                Team_2
               </ListItem>
             </List>
           </AccordionBody>
@@ -134,21 +144,9 @@ export default function UserSideBar({ setIsLogin, setProfile }) {
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <UserCircleIcon className='h-5 w-5' />
-          </ListItemPrefix>
-          Profile
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
             <Cog6ToothIcon className='h-5 w-5' />
           </ListItemPrefix>
           Settings
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className='h-5 w-5' />
-          </ListItemPrefix>
-          <Logout />
         </ListItem>
       </List>
     </Card>

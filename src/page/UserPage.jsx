@@ -3,17 +3,16 @@ import User from '../component/user/User';
 import UserSideBar from '../component/userSideBar/userSideBar';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { StickyNavbar } from '../component/Nav/StickyNavbar';
 
 export default function UserPage({ setIsLogin, setProfile }) {
   const navigate = useNavigate();
+  // const token = useSelector((state) => state.auth.token);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem('user'));
-
-    if (!storedProfile) {
-      navigate('/'); // 로그인되어 있지 않으면 로그인 페이지
-    }
-  }, [navigate]);
+  // console.log('Token:', token);
+  // console.log('Is Authenticated:', isAuthenticated);
 
   return (
     <MainLayout
