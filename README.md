@@ -51,3 +51,19 @@ true
 <img width="1728" alt="스크린샷 2024-11-04 오후 3 22 45" src="https://github.com/user-attachments/assets/15c950fc-a771-4c3b-8303-6bd922513e32">
 다음과 같이 라우팅을 나누었다.
 **user/:id** 이후로 note list 와 group list 그리고 각 판서마다 객체번호를 부여하여 인가 과정을 거치는 작업을 서버에서 구현 할것이다.
+
+### 11.05
+- 빠른 프로젝트를 위해서 Tailwind Mui를 적용하였다. 기존의 Flowbite를 지우고 좀더 컴포넌트가 풍부한 Tailwind를 프로젝트에 넣으면서 여러 의존성이 겹쳐서 그것을 해결하는데 애를 먹었다. 
+Tailwind MUI를 설치하고 나서 라이브러리 자체에서 사용하는 useContext에 대한 오류를 찾기 위해 Tailwind MUI 레포지토리를 찾아보고 오류를 해결하였다. 이유는 버전의오류였는데 최근 react 18.3.1로 업데이트 되면서 약간의 간섭이 생긴것 같다 오류는 다음과 같이 해결했다.
+```
+"overrides": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+```
+pagkage.json 에 다음과 같이 의존성을 추가하면된다.
+
+- 로그인후 user를 위한 SideBar를 추가 하였다. 여기에는 user의 노트들과 공유 되어 있는 노트 및 그룹들이 표시될 예정이다.
+<img width="1711" alt="스크린샷 2024-11-05 오후 6 16 51" src="https://github.com/user-attachments/assets/be01da7c-52ec-4f68-9bd2-67f1e62b146c">
+- MUI로 변경하면서 로그인 ui 도 같이 변경하였다.
+- <img width="864" alt="스크린샷 2024-11-05 오후 6 27 30" src="https://github.com/user-attachments/assets/3b056232-314f-4976-97ac-d2d8ca9816b1">
