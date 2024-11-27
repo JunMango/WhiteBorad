@@ -67,3 +67,10 @@ pagkage.json 에 다음과 같이 의존성을 추가하면된다.
 <img width="1711" alt="스크린샷 2024-11-05 오후 6 16 51" src="https://github.com/user-attachments/assets/be01da7c-52ec-4f68-9bd2-67f1e62b146c">
 - MUI로 변경하면서 로그인 ui 도 같이 변경하였다.
 - <img width="864" alt="스크린샷 2024-11-05 오후 6 27 30" src="https://github.com/user-attachments/assets/3b056232-314f-4976-97ac-d2d8ca9816b1">
+
+### 11.27 
+- 많은 일이 있었다. JWT 로그인을 도입하고 서버와 연결하면서 user의 모든 요청에는 Http header에 모두 Cookie로 저장한 jwt 토큰을 보내주어서 사용자에 대한 인증을 해주어야 하는데 서버와 같이 작업을 하다 보니 늦은것 같다. 물론 그것만 한것은 아니다. 전체 적인 UI와 환경변수 도입, note api, 그리고 상태관리를 위해 redux를 사용해 상태관리 상태를 구축했다. 로그인 정보를 통해서 여러 데이터들을 서버와 통신해야 하는데 여러 컴포넌트가 생기다보니 props drilling 이 생기는것을 방지하고 코드의 가시성을 위해서 도입했다. 그리고 편리한 ui를 위해서 많은 신경을 쓰었다.
+<img width="1728" alt="스크린샷 2024-11-27 오후 12 18 10" src="https://github.com/user-attachments/assets/8e461adc-e59a-4c3e-8070-9fe57e951bc0">
+<img width="1725" alt="스크린샷 2024-11-27 오후 12 18 20" src="https://github.com/user-attachments/assets/47f27d7e-dd0d-4e33-a57a-3342debcd4cd">
+<img width="1726" alt="스크린샷 2024-11-27 오후 12 18 27" src="https://github.com/user-attachments/assets/aa1a2a9c-2be3-49ad-9a13-9f04e543582e">
+<img width="1728" alt="스크린샷 2024-11-27 오후 12 18 32" src="https://github.com/user-attachments/assets/826f09cf-44b6-469d-92f3-2a75919a1e8d">
