@@ -74,3 +74,11 @@ pagkage.json 에 다음과 같이 의존성을 추가하면된다.
 <img width="1725" alt="스크린샷 2024-11-27 오후 12 18 20" src="https://github.com/user-attachments/assets/47f27d7e-dd0d-4e33-a57a-3342debcd4cd">
 <img width="1726" alt="스크린샷 2024-11-27 오후 12 18 27" src="https://github.com/user-attachments/assets/aa1a2a9c-2be3-49ad-9a13-9f04e543582e">
 <img width="1728" alt="스크린샷 2024-11-27 오후 12 18 32" src="https://github.com/user-attachments/assets/826f09cf-44b6-469d-92f3-2a75919a1e8d">
+
+### 11.30 
+- user가 새로운 그룹을 생성하면  auth-> group 객체가 생기고 group 객체의 Object_id를 auth -> user_info 에 삽입해준다. 해서 각 유저는 자신의 그룹에 대한 고유 id를 배열로서 가지게 된다.
+- 추가로 .env파일이 나의 실수로 이미 git 에 추적이 되어서 .gitignore 파일에 추가를 해줘도 계속 적용이 된다. ㅜㅜ 그렇다고 local 깃을 지우기에는 무리가 있기에 일단 그냥 진행하도록 하였다.
+- <img width="1728" alt="스크린샷 2024-11-30 오전 12 52 53" src="https://github.com/user-attachments/assets/8fe76cf3-23e5-4de7-bedf-632c4d4b2979">
+- <img width="1728" alt="스크린샷 2024-11-30 오전 12 53 56" src="https://github.com/user-attachments/assets/5b7abba7-245b-4ef4-8d64-b956d83a3261">
+- 이제 그룹을 진행하였고 각 유저에 대한 데이터베이스의 구조를 어느정도 갖췃으니 모든 api를 완성 시키고 소켓연결 까지 하면 완성이다.
+
