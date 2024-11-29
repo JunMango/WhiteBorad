@@ -3,7 +3,7 @@ import axiosWithCookie from './api';
 export const createNote = async (noteTitle) => {
   try {
     const res = await axiosWithCookie.post(
-      process.env.REACT_API_NOTE_CREATE,
+      process.env.REACT_APP_API_NOTE_CREATE,
       noteTitle
     );
     console.log(res.status);
@@ -18,7 +18,7 @@ export const createNote = async (noteTitle) => {
 
 export const getNoteList = async () => {
   try {
-    const res = await axiosWithCookie.get(process.env.REACT_API_NOTE_LIST);
+    const res = await axiosWithCookie.get(process.env.REACT_APP_API_NOTE_LIST);
     if (res.status === 200) {
       return res.data;
     }
