@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
   Button,
   Dialog,
@@ -11,7 +11,7 @@ import {
 import { UserPlusIcon } from '@heroicons/react/24/solid';
 
 export function DialogCustomAnimation() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 

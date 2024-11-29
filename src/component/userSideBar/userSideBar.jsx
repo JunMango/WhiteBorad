@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Card,
   Typography,
@@ -22,22 +22,38 @@ import {
 
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useDispatch, useSelector } from 'react-redux';
-import { BellIcon, UserGroupIcon } from '@heroicons/react/16/solid';
+import {
+  BellIcon,
+  PlusCircleIcon,
+  UserGroupIcon,
+} from '@heroicons/react/16/solid';
+import { InviteModal } from '../Dialog/InviteModal';
+import { getGroupList } from '../../utils/group';
 
 export default function UserSideBar({ setIsLogin, setProfile }) {
   const [open, setOpen] = useState(0);
+  const [isGroupList, setIsGroupList] = useState([]);
   const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
-  console.log(user);
+  // const dispatch = useDispatch();
+  useEffect(() => {
+    getGroupList().then((res) => {
+      if (res && Array.isArray(res)) {
+        setIsGroupList(res);
+      } else {
+        setIsGroupList([]);
+      }
+    });
+  }, [open]);
   const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
+    const newOpen = open === value ? 0 : value;
+    setOpen(newOpen);
   };
 
   return (
     <Card className='h-[80vh] p-1  shadow-gray-600'>
       <div className='mb-2 p-4'>
         <Typography variant='h5' color='blue-gray'>
-          Title-binding
+          Hello {user.name}
         </Typography>
       </div>
       <List>
@@ -45,7 +61,7 @@ export default function UserSideBar({ setIsLogin, setProfile }) {
           <ListItemPrefix>
             <UserCircleIcon className='h-8 w-8 text-blue-900' />
           </ListItemPrefix>
-          <span className='text-black'>{user.name}</span>
+          <span className='text-black'>{user.email}</span>
         </ListItem>
         <Accordion
           open={open === 1}
@@ -112,18 +128,22 @@ export default function UserSideBar({ setIsLogin, setProfile }) {
           </ListItem>
           <AccordionBody className='py-1'>
             <List className='p-0'>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
-                </ListItemPrefix>
-                Team_1
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className='h-3 w-5' />
-                </ListItemPrefix>
-                Team_2
-              </ListItem>
+              <InviteModal>
+                <ListItem>
+                  <ListItemPrefix>
+                    <PlusCircleIcon className='h-4 w-4 text-green-500' />
+                  </ListItemPrefix>
+                  그룹만들기
+                </ListItem>
+              </InviteModal>
+              {isGroupList.map((index) => (
+                <ListItem key={index}>
+                  <ListItemPrefix>
+                    <ChevronRightIcon className='h-3 w-5' />
+                  </ListItemPrefix>
+                  {index.title}
+                </ListItem>
+              ))}
             </List>
           </AccordionBody>
         </Accordion>

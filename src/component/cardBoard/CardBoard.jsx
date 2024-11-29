@@ -19,9 +19,6 @@ export default function CardBoard(props) {
   const handleCardClick = () => {
     navigate(`/user/note/${_id}`); // 경로 변경
   };
-  // const dateObject = new Date(createdAt);
-  // const dateOnly = dateObject.toISOString().split('T')[0];
-  // console.log(dateOnly); // 출력: "2024-11-21"
   return (
     <>
       <Card className='mt-6 w-80 overflow-hidden cursor-pointer'>
@@ -37,7 +34,7 @@ export default function CardBoard(props) {
           />
         </CardHeader>
         <CardBody className='flex justify-between'>
-          <Typography variant='h4' color='blue-gray'>
+          <Typography variant='h5' color='blue-gray'>
             {title}
           </Typography>
           <DialogCustomAnimation />

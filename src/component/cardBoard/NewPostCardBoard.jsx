@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { createNote } from '../../utils/note';
 
 export default function NewPostCardBoard(props) {
-  const [isTitle, setIsTitle] = useState();
+  const [isTitle, setIsTitle] = useState('제목없는 노트');
 
   return (
     <Card className='mt-6 w-80 flex flex-col'>
@@ -36,7 +36,7 @@ export default function NewPostCardBoard(props) {
             label='Title'
             placeholder='title'
             value={isTitle}
-            onchange={(e) => setIsTitle(e.target.value)}
+            onChange={(e) => setIsTitle(e.target.value)}
           />
           <div></div>
         </div>
