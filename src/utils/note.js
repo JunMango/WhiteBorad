@@ -2,7 +2,10 @@ import axiosWithCookie from './api';
 
 export const createNote = async (noteTitle) => {
   try {
-    const res = await axiosWithCookie.post('/api/note/new', noteTitle);
+    const res = await axiosWithCookie.post(
+      process.env.REACT_API_NOTE_CREATE,
+      noteTitle
+    );
     console.log(res.status);
     if (res.status === 201) {
       alert('새로운 노트가 생성되었습니다.');
@@ -15,7 +18,7 @@ export const createNote = async (noteTitle) => {
 
 export const getNoteList = async () => {
   try {
-    const res = await axiosWithCookie.get('/api/note/list');
+    const res = await axiosWithCookie.get(process.env.REACT_API_NOTE_LIST);
     if (res.status === 200) {
       return res.data;
     }

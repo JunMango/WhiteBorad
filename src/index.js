@@ -9,8 +9,7 @@ import { ThemeProvider } from '@material-tailwind/react';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-const clientId =
-  '796118742393-95aocb5ca5e3uvsr1bd7qbj0g3oq0ve1.apps.googleusercontent.com';
+const clientId = process.env.REACT_GOOGLE_CLIENTID;
 
 const root = createRoot(document.getElementById('root'));
 root.render(
